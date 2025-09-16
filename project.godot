@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="Game_Of_Life"
+run/main_scene="uid://cn0b3v7c1wfh5"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
 
 [rendering]
 

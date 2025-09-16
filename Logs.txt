@@ -1,0 +1,12 @@
+----------------------------------------------------------------------------------------------------------------------
+                                                        16 Sep, 2025
+----------------------------------------------------------------------------------------------------------------------
+- Setting resolution to 960x540
+- Making MainGameplayCanvas
+    [=] Adding GridContainer
+- Adding BaseTile as separate scene prefab
+- Adding Pixel128x128 | Pause
+
+- Scripts
+    [=] MainGameplayManager
+        {+} Adding pause logic
