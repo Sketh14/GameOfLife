@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cn0b3v7c1wfh5"]
+[gd_scene load_steps=5 format=3 uid="uid://cn0b3v7c1wfh5"]
 
 [ext_resource type="Script" uid="uid://5hjoalwkbejk" path="res://Scripts/MainGameplayManager.gd" id="1_11kme"]
 [ext_resource type="Texture2D" uid="uid://dd2g4ik1eyb8x" path="res://Sprites/Play.png" id="2_4hngl"]
+[ext_resource type="PackedScene" uid="uid://cmwdyy1b6fjdm" path="res://Scenes/BaseTile.tscn" id="2_c8uxd"]
 [ext_resource type="Texture2D" uid="uid://b3e80e2hv7vjt" path="res://Sprites/Pixel128X128.png" id="3_ecncb"]
 
-[node name="MainGameplayCanvas" type="Control" node_paths=PackedStringArray("_pauseTex", "_playTex")]
+[node name="MainGameplayCanvas" type="Control" node_paths=PackedStringArray("_pauseTex", "_playTex", "_tileContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,22 +15,112 @@ grow_vertical = 2
 script = ExtResource("1_11kme")
 _pauseTex = NodePath("Button/PauseTex")
 _playTex = NodePath("Button/PlayTex")
+_gridDimensions = Vector2i(5, 20)
+_tileContainer = NodePath("TilesGridContainer")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="TilesGridContainer" type="GridContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = 30.0
+offset_right = -60.0
+offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
+columns = 20
+
+[node name="BaseTile" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="BaseTile2" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile3" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile4" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile5" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile6" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile7" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile8" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile9" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile10" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile11" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile12" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile13" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile14" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile15" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile16" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile17" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile18" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile19" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BaseTile20" parent="TilesGridContainer" instance=ExtResource("2_c8uxd")]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -45.0
-offset_bottom = 45.0
+offset_left = -55.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 55.0
 grow_horizontal = 0
 
 [node name="PlayTex" type="TextureRect" parent="Button"]
@@ -49,6 +140,7 @@ expand_mode = 1
 
 [node name="PauseTex" type="Control" parent="Button"]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -85,4 +177,4 @@ grow_vertical = 2
 texture = ExtResource("3_ecncb")
 expand_mode = 1
 
-[connection signal="pressed" from="Button" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="OnPauseButtonPressed"]

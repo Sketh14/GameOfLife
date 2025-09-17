@@ -10,3 +10,11 @@
 - Scripts
     [=] MainGameplayManager
         {+} Adding pause logic
+
+- MainGameplayScene
+    [=] Positioning Pause bt
+    [=] Changing Container-Sizing for tiles to Expand | Also Minimum-Size
+- Scripts
+    [=] MainGameplayManager
+        {+} Adding _gridDimensions | _tileContainer | Starting Pos | Tile path
+        {+} Initializing tiles logic

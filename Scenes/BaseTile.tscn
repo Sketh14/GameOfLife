@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b3e80e2hv7vjt" path="res://Sprites/Pixel128X128.png" id="1_orqc4"]
 
 [node name="BaseTile" type="Control"]
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -13,6 +14,7 @@ offset_right = 10.0
 offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
