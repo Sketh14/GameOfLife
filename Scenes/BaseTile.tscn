@@ -1,10 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmwdyy1b6fjdm"]
+[gd_scene load_steps=3 format=3 uid="uid://cmwdyy1b6fjdm"]
 
-[ext_resource type="Texture2D" uid="uid://b3e80e2hv7vjt" path="res://Sprites/Pixel128X128.png" id="1_orqc4"]
+[ext_resource type="Theme" uid="uid://w0wlp6w4f4aw" path="res://ThemeOverrides/TileButtonTheme.tres" id="1_orqc4"]
 
-[node name="BaseTile" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_orqc4"]
+bg_color = Color(1, 1, 1, 1)
+anti_aliasing = false
+
+[node name="BaseTile" type="Button"]
 custom_minimum_size = Vector2(10, 10)
-layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -15,14 +18,7 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(5, 5)
-texture = ExtResource("1_orqc4")
-expand_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("1_orqc4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_orqc4")
+expand_icon = true
