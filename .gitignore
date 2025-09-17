@@ -22,3 +22,4 @@ mono_crash.*.json
 
 #Build ignores
 /[Bb]uilds/
+/[Ll]ogs.txt
