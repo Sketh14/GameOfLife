@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dd2g4ik1eyb8x" path="res://Sprites/Play.png" id="2_4hngl"]
 [ext_resource type="Texture2D" uid="uid://b3e80e2hv7vjt" path="res://Sprites/Pixel128X128.png" id="3_ecncb"]
 
-[node name="MainGameplayCanvas" type="Control" node_paths=PackedStringArray("_pauseTex", "_playTex", "_tileContainer")]
+[node name="MainGameplayCanvas" type="Control" node_paths=PackedStringArray("_startBt", "_pauseTex", "_playTex", "_tileContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,9 +12,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_11kme")
-_pauseTex = NodePath("Button/PauseTex")
-_playTex = NodePath("Button/PlayTex")
-_gridColumns = 30
+_startBt = NodePath("StartBt")
+_pauseTex = NodePath("PauseButton/PauseTex")
+_playTex = NodePath("PauseButton/PlayTex")
 _tileContainer = NodePath("TilesGridContainer")
 
 [node name="TilesGridContainer" type="GridContainer" parent="."]
@@ -32,7 +32,7 @@ theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
 columns = 20
 
-[node name="Button" type="Button" parent="."]
+[node name="PauseButton" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -43,7 +43,7 @@ offset_right = -10.0
 offset_bottom = 55.0
 grow_horizontal = 0
 
-[node name="PlayTex" type="TextureRect" parent="Button"]
+[node name="PlayTex" type="TextureRect" parent="PauseButton"]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -58,7 +58,7 @@ grow_vertical = 2
 texture = ExtResource("2_4hngl")
 expand_mode = 1
 
-[node name="PauseTex" type="Control" parent="Button"]
+[node name="PauseTex" type="Control" parent="PauseButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,7 +67,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="PlayBar_1" type="TextureRect" parent="Button/PauseTex"]
+[node name="PlayBar_1" type="TextureRect" parent="PauseButton/PauseTex"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -83,7 +83,7 @@ grow_vertical = 2
 texture = ExtResource("3_ecncb")
 expand_mode = 1
 
-[node name="PlayBar_2" type="TextureRect" parent="Button/PauseTex"]
+[node name="PlayBar_2" type="TextureRect" parent="PauseButton/PauseTex"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -99,4 +99,36 @@ grow_vertical = 2
 texture = ExtResource("3_ecncb")
 expand_mode = 1
 
-[connection signal="pressed" from="Button" to="." method="OnPauseButtonPressed"]
+[node name="StartBt" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 55.0
+offset_bottom = 55.0
+
+[node name="PlayTex" type="TextureRect" parent="StartBt"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_4hngl")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 10.0
+offset_right = 260.0
+offset_bottom = 50.0
+theme_override_font_sizes/normal_font_size = 12
+text = "Generation"
+scroll_active = false
+
+[connection signal="pressed" from="PauseButton" to="." method="OnPauseButtonPressed"]
