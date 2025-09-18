@@ -6,6 +6,8 @@ extends Control
 # Buttons
 # @export var _pauseButton: Button
 @export var _startBt: Button
+@export var _randomizeBt: Button
+@export var _speedSlider: Slider
 
 #Textures
 @export var _pauseTex: CanvasItem
@@ -16,6 +18,7 @@ extends Control
 @export var _gridColumns = _DEFAULT_GRID_COLUMNS
 @export var _tileContainer: GridContainer
 @export var _infoTxt: RichTextLabel
+@export var _speedTxt: RichTextLabel
 # @export var _tilePrefab: Node
 
 var _pauseStatus: bool
@@ -49,6 +52,7 @@ func _ready() -> void:
 	_generation = 0
 	_population = 0
 	_infoTxt.text = "Generation: 0\nPopulation: 0"
+	_speedTxt.text = "Speed: " + str(_solveSpeed)
 
 	_pressedStyleBox = StyleBoxFlat.new()
 	_pressedStyleBox.bg_color = _PRESSED_COLOR
@@ -56,12 +60,24 @@ func _ready() -> void:
 	
 	InitializeTiles()
 
-	# GameLogic()
-	_startBt.connect("pressed",
-		func():
-			_simulationStarted = !_simulationStarted
-			if _simulationStarted:
-				GameLogic())
+	# Buttons
+	_startBt.connect("pressed", ToggleGameState)
+	_randomizeBt.connect("pressed", RandomizeAndUpdateTiles)
+	_speedSlider.connect("drag_ended", AdjustSpeed)
+
+func AdjustSpeed(speedChanged: bool):
+	if (!speedChanged): return
+	# print("Slider Drag Ended" + str(_speedSlider.value))
+	_solveSpeed = _speedSlider.value
+	_speedTxt.text = "Speed: " + str(_solveSpeed)
+
+func ToggleGameState():
+	_simulationStarted = !_simulationStarted
+	if (_simulationStarted):
+		_startBt.text = "Stop"
+		GameLogic()
+	else:
+		_startBt.text = "Start"
 
 func OnPauseButtonPressed():
 	_pauseStatus = !_pauseStatus
@@ -102,6 +118,24 @@ func InitializeTiles():
 			_tilesStateNext.append(0)
 	# print("Total Tiles Added: " + str(_tilesArr.size()))
 
+# Stack Overflow | biased-towards-one-value-in-a-range
+func RandomizeAndUpdateTiles():
+	var currIndex = -1
+	var influence = 0.8 # 0.0 - 1.0
+	var bias = 0.05
+	var randomState = -1
+	var mix = -1
+	for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
+		for j in _gridColumns: # Columns
+			currIndex = (i * _gridColumns) + j
+
+			randomState = randi_range(0, 20) % 2
+			mix = randf() * influence
+			_tilesState[currIndex] = roundi(randomState * (1 - mix) + bias * mix)
+
+			_tilesStateNext[currIndex] = _tilesState[currIndex]
+			UpdateTile(currIndex)
+
 func TilePressed(tileIndex: int):
 	if (_tilesState[tileIndex] == 1):
 		_tilesState[tileIndex] = 0
@@ -140,6 +174,9 @@ func GameLogic():
 	_generation = 0
 	# while (_simulationStarted && _generation < 100):
 	while (_simulationStarted):
+		await get_tree().create_timer(_solveSpeed).timeout
+		if (_pauseStatus): continue
+
 		# PrintTileStates(_tilesState)
 		var currIndex = -1;
 
@@ -196,7 +233,6 @@ func GameLogic():
 		# _awaitTimer.time_left = _solveSpeed
 		# await _awaitTimer.timeout
 
-		await get_tree().create_timer(_solveSpeed).timeout
 		_infoTxt.text = "Generation: " + str(_generation) + "\nPopulation: " + str(_population)
 		# print("Curr _generation" + str(_generation))
 
