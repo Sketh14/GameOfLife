@@ -87,8 +87,7 @@ func InitializeTiles():
 	var tilePrefab = load(_TILE_PREFAB_PATH)
 	# print("_gridDimensions : " + str(_gridDimensions))
 
-	# for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
-	for i in _gridColumns:
+	for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
 		for j in _gridColumns: # Columns
 			var initializedTile = (tilePrefab.instantiate() as Button)
 			initializedTile.connect("pressed", func(): TilePressed((i * _gridColumns) + j))
@@ -128,8 +127,8 @@ func UpdateTile(tileIndex: int):
 func PrintTileStates(tilesArr: Array[int]):
 	var debugTiles = ""
 	var currIndex = -1;
-	# for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
-	for i in _gridColumns:
+	for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
+	# for i in _gridColumns:
 		for j in _gridColumns: # Columns
 			currIndex = (i * _gridColumns) + j
 			debugTiles += str(currIndex) + "[" + str(tilesArr[currIndex]) + "] | "
@@ -139,30 +138,30 @@ func PrintTileStates(tilesArr: Array[int]):
 
 func GameLogic():
 	_generation = 0
-	while (_simulationStarted && _generation < 100):
+	# while (_simulationStarted && _generation < 100):
+	while (_simulationStarted):
 		# PrintTileStates(_tilesState)
 		var currIndex = -1;
 
-		for i in _gridColumns:
-			for j in _gridColumns: # Columns
-				currIndex = (i * _gridColumns) + j
-				_tilesStateNext[currIndex] = _tilesState[currIndex]
+		# Copy Data for Current Calculation
+		# for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
+		# 	for j in _gridColumns: # Columns
+		# 		currIndex = (i * (_gridColumns - _RATIO_DIFF)) + j
+		# 		_tilesStateNext[currIndex] = _tilesState[currIndex]
 
 		# Update All Tiles
-		# for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
-		for i in _gridColumns:
+		for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
 			for j in _gridColumns: # Columns
 				currIndex = (i * _gridColumns) + j
 				UpdateTile(currIndex)
 
 		var sum = 0
-		# for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
-		for i in _gridColumns:
+		for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
 			for j in _gridColumns: # Columns
 				currIndex = (i * _gridColumns) + j
 
 				# Ignore Edges
-				if (i == 0 || i == (_gridColumns - 1) || j == 0 || j == _gridColumns - 1):
+				if (i == 0 || i == (_gridColumns - _RATIO_DIFF - 1) || j == 0 || j == _gridColumns - 1):
 					_tilesStateNext[currIndex] = _tilesState[currIndex]
 					continue
 
@@ -185,7 +184,7 @@ func GameLogic():
 		# _tilesState = _tilesStateNext
 		
 		# Update Array
-		for i in _gridColumns:
+		for i in (_gridColumns - _RATIO_DIFF): # Rows | 9:16 ratio
 			for j in _gridColumns: # Columns
 				currIndex = (i * _gridColumns) + j
 				_tilesState[currIndex] = _tilesStateNext[currIndex]
