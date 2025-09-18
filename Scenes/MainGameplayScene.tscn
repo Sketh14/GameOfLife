@@ -18,7 +18,7 @@ _playTex = NodePath("PauseButton/PlayTex")
 _gridColumns = 20
 _tileContainer = NodePath("TilesGridContainer")
 _infoTxt = NodePath("GameInfo_RTLabel")
-_solveSpeed = 0.1
+_solveSpeed = 0.25
 
 [node name="TilesGridContainer" type="GridContainer" parent="."]
 layout_mode = 1

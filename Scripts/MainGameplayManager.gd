@@ -161,9 +161,9 @@ func GameLogic():
 				currIndex = (i * _gridColumns) + j
 
 				# Ignore Edges
-				if (i == 0 || i == (_gridColumns - _RATIO_DIFF - 1) || j == 0 || j == _gridColumns - 1):
-					_tilesStateNext[currIndex] = _tilesState[currIndex]
-					continue
+				# if (i == 0 || i == (_gridColumns - _RATIO_DIFF - 1) || j == 0 || j == _gridColumns - 1):
+				# 	_tilesStateNext[currIndex] = _tilesState[currIndex]
+				# 	continue
 
 				# Count live neighbours
 				sum = CountNeighbours(currIndex)
@@ -200,22 +200,32 @@ func GameLogic():
 		_infoTxt.text = "Generation: " + str(_generation) + "\nPopulation: " + str(_population)
 		# print("Curr _generation" + str(_generation))
 
-	print("Final _generation" + str(_generation))
+	# print("Final _generation" + str(_generation))
 
 # Check Tile value within 1 block radius
 func CountNeighbours(tileIndex: int) -> int:
 	# print("Checking for index: " + str(tileIndex))
 	var sum = 0
-	var offset = -1
+	# var tileRow = tileIndex / _gridColumns
+	# var tileCol = tileIndex % _gridColumns
+	# var offset = -1
+	
+	var finalIndex = -1
 	for i in range(-1, 2):
 		for j in range(-1, 2):
-			offset = (i * _gridColumns) + j
+			# Calculate Row
+			# tileRow = ((tileIndex / _gridColumns) + i + _gridColumns) % _gridColumns
+			finalIndex = ((tileIndex / _gridColumns) + i + _gridColumns - _RATIO_DIFF) % (_gridColumns - _RATIO_DIFF)
+			finalIndex *= _gridColumns
 
-			# Out-Of-Bounds Check
-			# if (tileIndex + offset) / _gridColumns < 0:
-			# 	continue
+			# Calculate Column
+			# tileCol = ((tileIndex % _gridColumns) + j + _gridColumns) % _gridColumns
+			finalIndex += ((tileIndex % _gridColumns) + j + _gridColumns) % _gridColumns
 
-			sum += _tilesState[tileIndex + offset]
+			# offset = (i * _gridColumns) + j
+			# sum += _tilesState[tileIndex + offset]
+
+			sum += _tilesState[finalIndex]
 			# print("Offset: " + str(offset) + "Sum: " + str(sum))
 
 	sum -= _tilesState[tileIndex]
